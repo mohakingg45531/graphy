@@ -1,28 +1,29 @@
 {
-  "inbounds": [
-    {
-      "port": 443,
-      "protocol": "vless",
-      "settings": {
-        "clients": [
-          {
-            "id": "550e8400-e29b-41d4-a716-446655440000"
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "xhttp",
-        "xhttpSettings": {
-          "mode": "packet-up",
-          "path": "/"
-        }
-      }
+  "name": "silver-bridge-3a08fe",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": "."
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
     }
+  },
+  "postAttachCommand": "gh codespace ports visibility 443:public -c $CODESPACE_NAME && bash /usr/local/bin/start.sh",
+  "portsAttributes": {
+    "443": {
+      "label": "silver-bridge-3a08fe",
+      "protocol": "http",
+      "onAutoForward": "silent"
+    }
+  },
+  "forwardPorts": [
+    443
   ],
-  "outbounds": [
-    {
-      "protocol": "freedom"
-    }
-  ]
+  "hostRequirements": {
+    "cpus": 2
+  }
 }
